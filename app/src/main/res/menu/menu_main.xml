@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@drawable/ic_folder_black_24dp"
+        android:title="Create new file"
+        app:showAsAction="always">
+
+        <item
+            android:id="@+id/action_new_file"
+            android:icon="@drawable/ic_insert_drive_file_black_24dp"
+            android:title="Create new file"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_new_folder"
+            android:icon="@drawable/ic_create_new_folder_black_24dp"
+            android:title="Create new folder"
+            app:showAsAction="never" />
+
+    </item>
+</menu>

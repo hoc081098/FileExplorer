@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/empty"
         android:icon="@drawable/ic_folder_black_24dp"
+        android:orderInCategory="101"
         android:title="Create new file"
         app:showAsAction="always">
 
@@ -11,13 +13,13 @@
             android:id="@+id/action_new_file"
             android:icon="@drawable/ic_insert_drive_file_black_24dp"
             android:title="Create new file"
-            app:showAsAction="never" />
+            app:showAsAction="always|withText" />
 
         <item
             android:id="@+id/action_new_folder"
             android:icon="@drawable/ic_create_new_folder_black_24dp"
             android:title="Create new folder"
-            app:showAsAction="never" />
+            app:showAsAction="always|withText" />
 
     </item>
 </menu>

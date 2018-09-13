@@ -24,11 +24,39 @@
         android:drawableStart="@drawable/ic_delete_black_24dp"
         android:drawablePadding="16dp"
         android:fontFamily="@font/nunito_sans"
+        android:padding="8dp"
         android:text="Delete"
         android:textColor="#424242"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="8dp"
+        android:background="#eeeeee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_delete" />
+
+    <TextView
+        android:id="@+id/text_copy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_content_copy_black_24dp"
+        android:drawablePadding="16dp"
+        android:fontFamily="@font/nunito_sans"
+        android:padding="8dp"
+        android:text="Copy"
+        android:textColor="#424242"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

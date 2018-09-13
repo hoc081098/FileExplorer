@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
-import com.hoc.fileexplorer.MainActivity.Companion.CHANGE_FILES
+import com.hoc.fileexplorer.MainActivity.Companion.ACTION_CHANGE_FILES
 import kotlinx.android.synthetic.main.fragment_files_list.*
 import kotlinx.coroutines.DefaultDispatcher
 import kotlinx.coroutines.Job
@@ -27,6 +28,7 @@ class FilesListFragment : Fragment() {
     private val fileAdapter = FilesAdapter({ callback.onClick(it) }, { callback.onLongClick(it) })
     private val parentJob = Job()
     private val broadcastReceiver = UpdateReceive()
+    private val intentFilter = IntentFilter().apply { addAction(ACTION_CHANGE_FILES) }
 
     private var listState: Parcelable? = null
     private var files: List<FileModel>? = null
@@ -87,7 +89,7 @@ class FilesListFragment : Fragment() {
         LocalBroadcastManager.getInstance(requireContext())
             .registerReceiver(
                 broadcastReceiver,
-                IntentFilter().apply { addAction(CHANGE_FILES) }
+                intentFilter
             )
         listState?.let { linearLayoutManager.onRestoreInstanceState(it) }
     }
@@ -109,6 +111,7 @@ class FilesListFragment : Fragment() {
             withContext(DefaultDispatcher) {
                 getFileModelsFromFiles(getAllFilesFromPath(path)).also(::print)
             }.let {
+                Log.d("MY_TAG", "update.................")
                 updateList(it)
                 files = it
             }
@@ -128,9 +131,14 @@ class FilesListFragment : Fragment() {
 
     inner class UpdateReceive : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+
             when (intent?.action) {
-                CHANGE_FILES -> {
-                    if (intent.getStringExtra(FOLDER_PATH) == path) {
+                ACTION_CHANGE_FILES -> {
+                    if (path in intent.getStringArrayListExtra(FOLDER_PATHS)) {
+                        Log.d(
+                            "MY_TAG",
+                            "${intent.action} ${intent.getStringExtra(FOLDER_PATHS)} ${path} should update list!"
+                        )
                         getDateAndUpdateList()
                     }
                 }
@@ -147,8 +155,8 @@ class FilesListFragment : Fragment() {
         }
 
         const val ARG_PATH = "ARG_PATH"
-        const val FOLDER_PATH = "FOLDER_PATH"
+        const val FOLDER_PATHS = "FOLDER_PATHS"
         const val LIST_STATE = "LIST_STATE"
-        const val FILES = "FILES"
+        const val FILES = "KEY_FILES"
     }
 }
